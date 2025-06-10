@@ -3,7 +3,7 @@ namespace Nerdbuilding.DiceRoller.Tests;
 using Models;
 using ValueTypes;
 
-public sealed class RollSettingsTests
+internal sealed class RollSettingsTests
 {
   [TestCase("3d4", 3, 4, 0)]
   [TestCase("4D8 + 2", 4, 8, 2)]
