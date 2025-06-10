@@ -36,7 +36,7 @@ public class RollSettings
     return $"{NumOfDice}{Size}{modString}";
   }
 
-  private static Regex RollSettingsRegex = new(@"^(?<dice>[0-9]+)d(?<size>[0-9]+)(?<mod>-|\+[0-9]+)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
+  private static Regex RollSettingsRegex = new(@"^(?<dice>[0-9]+)d(?<size>[0-9]+)(?<mod>[-+][0-9]+)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
   public static RollSettings Parse(string input)
   {
     var m = RollSettingsRegex.Match(input.Replace(" ", string.Empty));
@@ -48,20 +48,20 @@ public class RollSettings
     var dice = int.Parse(m.Groups["dice"].ToString());
     if (dice < 1)
     {
-      throw new Exception($"Number of dice must be greater than 0, but got {dice}.");
+      throw new ArgumentException($"Number of dice must be greater than 0, but got {dice}.", nameof(input));
     }
     var size = int.Parse(m.Groups["size"].ToString());
     if (size < 2)
     {
-      throw new Exception($"Die size must be 2 or greater, but got {size}.");
+      throw new ArgumentException($"Die size must be 2 or greater, but got {size}.", nameof(input));
     }
 
     var mod = 0;
-    if (m.Groups.TryGetValue("mod", out var modGroup))
+    if (m.Groups.TryGetValue("mod", out var modGroup) && modGroup.ToString().Length > 0)
     {
-      var sign = modGroup.ToString().First();
+      var isNegative = modGroup.ToString().StartsWith("-");
       var modAbs = int.Parse(modGroup.ToString().Substring(1));
-      mod = sign.Equals("-")
+      mod = isNegative
         ? modAbs * -1
         : modAbs;
     }
