@@ -4,10 +4,29 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <PackageId>Nerdbuilding.DiceRoller</PackageId>
+    <Version>1.0.0</Version>
+    <Title>Dice Roller</Title>
+    <Authors>Sabelyn Thorpe</Authors>
+    <Company>Nerdbuilding</Company>
+    <Description>
+      A small class library that provides models and logic for simulating dice rolls in an application.
+
+      For more information and examples, check out the readme:
+      https://github.com/Nerdbuilding/DiceRoller
+    </Description>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/Nerdbuilding/DiceRoller.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+  <None Include="..\readme.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
 </Project>
